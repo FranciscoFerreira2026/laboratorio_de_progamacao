@@ -1,0 +1,75 @@
+//Aluno: Francisco Ferreira de Conceição
+//Atividade: Atendimento de Cafeteria
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char itemDigitado[40];
+    float valorConta = 0.0;
+    int atendimentoAberto = 1;
+
+    printf("=====================================\n");
+    printf("        CAFETERIA BOM SABOR          \n");
+    printf("=====================================\n\n");
+
+    printf("Menu disponivel:\n");
+    printf("cafe       - R$ 4.50\n");
+    printf("tapioca    - R$ 8.00\n");
+    printf("suco       - R$ 6.50\n");
+    printf("misto      - R$ 9.00\n\n");
+
+    printf("Digite o nome do produto desejado.\n");
+    printf("Digite 'conta' para ver o total.\n");
+    printf("Digite 'sair' para cancelar o atendimento.\n\n");
+
+    // O atendimento continua enquanto a variável estiver ativa
+    while (atendimentoAberto == 1)
+    {
+        printf("Informe o pedido: ");
+        fgets(itemDigitado, 40, stdin);
+
+        // Remove o enter armazenado pelo fgets
+        itemDigitado[strcspn(itemDigitado, "\n")] = '\0';
+
+        if (strcmp(itemDigitado, "cafe") == 0)
+        {
+            valorConta += 4.50;
+            printf("Item registrado: cafe.\n\n");
+        }
+        else if (strcmp(itemDigitado, "tapioca") == 0)
+        {
+            valorConta += 8.00;
+            printf("Item registrado: tapioca.\n\n");
+        }
+        else if (strcmp(itemDigitado, "suco") == 0)
+        {
+            valorConta += 6.50;
+            printf("Item registrado: suco.\n\n");
+        }
+        else if (strcmp(itemDigitado, "misto") == 0)
+        {
+            valorConta += 9.00;
+            printf("Item registrado: misto.\n\n");
+        }
+        else if (strcmp(itemDigitado, "conta") == 0)
+        {
+            printf("\nValor total do atendimento: R$ %.2f\n", valorConta);
+            printf("Atendimento finalizado. Volte sempre!\n");
+            atendimentoAberto = 0;
+        }
+        else if (strcmp(itemDigitado, "sair") == 0)
+        {
+            printf("\nAtendimento cancelado pelo cliente.\n");
+            atendimentoAberto = 0;
+        }
+        else
+        {
+            printf("Produto nao cadastrado no menu.\n\n");
+        }
+    }
+
+    return 0;
+}

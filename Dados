@@ -1,0 +1,46 @@
+//Aluno: Francisco Ferreira de Conceição
+//Atividade: Lançamento de Dados
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+    int dadoUm;
+    int dadoDois;
+    int resultadoFinal;
+
+    srand(time(NULL));
+
+    printf("=====================================\n");
+    printf("          SIMULADOR DE DADOS         \n");
+    printf("=====================================\n\n");
+
+    // Sorteia dois números entre 1 e 6
+    dadoUm = (rand() % 6) + 1;
+    dadoDois = (rand() % 6) + 1;
+
+    resultadoFinal = dadoUm + dadoDois;
+
+    printf("Valor do primeiro dado: %d\n", dadoUm);
+    printf("Valor do segundo dado: %d\n", dadoDois);
+    printf("Resultado da soma: %d\n\n", resultadoFinal);
+
+    // Analisa o resultado conforme as regras solicitadas
+    if (resultadoFinal == 7 || resultadoFinal == 11)
+    {
+        printf("Situacao do jogador: VITORIA!\n");
+    }
+    else if (resultadoFinal == 2 || resultadoFinal == 3 || resultadoFinal == 12)
+    {
+        printf("Situacao do jogador: DERROTA!\n");
+    }
+    else
+    {
+        printf("Situacao do jogador: PONTO! Continue jogando.\n");
+    }
+
+    return 0;
+}

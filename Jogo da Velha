@@ -1,0 +1,143 @@
+//Aluno: Francisco Ferreira de Conceição
+//Atividade: Jogo da Velha
+
+
+#include <stdio.h>
+
+// Exibe o estado atual do tabuleiro
+void mostrarMapa(char tabuleiroJogo[3][3])
+{
+    int linha;
+    int coluna;
+
+    printf("\n");
+
+    for (linha = 0; linha < 3; linha++)
+    {
+        for (coluna = 0; coluna < 3; coluna++)
+        {
+            printf(" %c ", tabuleiroJogo[linha][coluna]);
+
+            if (coluna != 2)
+            {
+                printf("|");
+            }
+        }
+
+        printf("\n");
+
+        if (linha != 2)
+        {
+            printf("---+---+---\n");
+        }
+    }
+
+    printf("\n");
+}
+
+// Confere se existe alguma combinação vencedora
+char procurarGanhador(char tabuleiroJogo[3][3])
+{
+    int indice;
+
+    for (indice = 0; indice < 3; indice++)
+    {
+        if (tabuleiroJogo[indice][0] == tabuleiroJogo[indice][1] &&
+            tabuleiroJogo[indice][1] == tabuleiroJogo[indice][2])
+        {
+            return tabuleiroJogo[indice][0];
+        }
+
+        if (tabuleiroJogo[0][indice] == tabuleiroJogo[1][indice] &&
+            tabuleiroJogo[1][indice] == tabuleiroJogo[2][indice])
+        {
+            return tabuleiroJogo[0][indice];
+        }
+    }
+
+    if (tabuleiroJogo[0][0] == tabuleiroJogo[1][1] &&
+        tabuleiroJogo[1][1] == tabuleiroJogo[2][2])
+    {
+        return tabuleiroJogo[0][0];
+    }
+
+    if (tabuleiroJogo[0][2] == tabuleiroJogo[1][1] &&
+        tabuleiroJogo[1][1] == tabuleiroJogo[2][0])
+    {
+        return tabuleiroJogo[0][2];
+    }
+
+    return ' ';
+}
+
+int main()
+{
+    char tabuleiroJogo[3][3] = {
+        {'1', '2', '3'},
+        {'4', '5', '6'},
+        {'7', '8', '9'}};
+
+    int escolhaJogador;
+    int linhaEscolhida;
+    int colunaEscolhida;
+    int totalJogadas = 0;
+    char jogadorDaVez = 'X';
+    char ganhador = ' ';
+
+    printf("=====================================\n");
+    printf("          JOGO DA VELHA EM C         \n");
+    printf("=====================================\n");
+
+    while (totalJogadas < 9 && ganhador == ' ')
+    {
+        mostrarMapa(tabuleiroJogo);
+
+        printf("Vez do jogador %c. Escolha uma casa: ", jogadorDaVez);
+        scanf("%d", &escolhaJogador);
+
+        if (escolhaJogador < 1 || escolhaJogador > 9)
+        {
+            printf("\nCasa inexistente. Digite um numero de 1 a 9.\n");
+        }
+        else
+        {
+            linhaEscolhida = (escolhaJogador - 1) / 3;
+            colunaEscolhida = (escolhaJogador - 1) % 3;
+
+            if (tabuleiroJogo[linhaEscolhida][colunaEscolhida] == 'X' ||
+                tabuleiroJogo[linhaEscolhida][colunaEscolhida] == 'O')
+            {
+                printf("\nEssa casa ja foi marcada. Tente outra.\n");
+            }
+            else
+            {
+                tabuleiroJogo[linhaEscolhida][colunaEscolhida] = jogadorDaVez;
+                totalJogadas++;
+
+                ganhador = procurarGanhador(tabuleiroJogo);
+
+                if (jogadorDaVez == 'X')
+                {
+                    jogadorDaVez = 'O';
+                }
+                else
+                {
+                    jogadorDaVez = 'X';
+                }
+            }
+        }
+    }
+
+    mostrarMapa(tabuleiroJogo);
+
+    if (ganhador != ' ')
+    {
+        printf("Resultado final: jogador %c venceu!\n", ganhador);
+    }
+    else
+    {
+        printf("Resultado final: empate!\n");
+    }
+
+    return 0;
+}
